@@ -1,0 +1,44 @@
+#未看答案：
+class Solution:
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        longest_final = 0
+        s = list(s)
+        list_num = len(s)
+        for i, element in enumerate(s):
+            reads = []
+            for j in range(i,list_num):
+                if s[j] not in reads:
+                    reads.append(s[j])
+                    if j == list_num - 1:
+                        longest_now = len(reads)
+                        longest_final = longest_final if longest_final > longest_now else longest_now
+                else:
+                    longest_now = len(reads)
+                    longest_final = longest_final if longest_final > longest_now else longest_now
+                    break
+        return longest_final
+ 
+ 
+ #参考
+ class Solution:
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        longest_final = 0
+        for i in range(0,len(s)):
+            read = ""
+            for j in s[i:]:
+                if j not in read:
+                    read += j
+                    longest_now = len(read)
+                else:break
+            if longest_now > longest_final:
+                longest_final = longest_now
+        return longest_final
+ 
