@@ -17,7 +17,7 @@ class Solution:
             return l1
         else:
             carry = 0
-            ret = ListNode(0)
+            ret = ListNode(0) //记录下初始指针，方便返回；
             ret_Last = ret
 
             while (l1 or l2):
