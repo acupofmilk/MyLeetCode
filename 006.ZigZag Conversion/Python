@@ -1,0 +1,25 @@
+# 1th way
+class Solution:
+    def convert(self, s, numRows):
+        """
+        :type s: str
+        :type numRows: int
+        :rtype: str
+        """
+        num = len(s)
+        res = []
+        if numRows <= 1:
+            return s
+        for numRow in range(numRows): #对于每一行，找出他们的共同规律
+            point = numRow
+            step1 = 2 * (numRows - numRow -1)
+            step2 = 2 * (numRows - 1) - step1
+            if step1 and step2 :step = [step1,step2]
+            elif step1: step = [step1,step1]
+            else: step = [step2,step2]
+            i = 0
+            while point < num :
+                res.append(s[point])
+                point += step[i%2]
+                i += 1
+        return ''.join(res)
