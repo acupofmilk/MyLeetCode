@@ -1,1 +1,73 @@
+#By My Self~1th way
 
+class Solution: #通过正序和反序序列比较
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        posSeq = list(s)
+        revSeq = list(reversed(posSeq)) #翻转
+        left = right = 0
+        num = len(s)
+        for sub, letter in enumerate(posSeq):
+            if num - sub < right - left + 1:break #判断是否可能最大值都小于现在的最长长度
+            for i in range(sub,num):
+                while posSeq[i] == letter and posSeq[sub:i+1] == revSeq[num-1-i:num-sub]: #反转后 i对应 num-1-i
+                    if i - sub > right - left:
+                        left = sub
+                        right = i
+                    break
+        return s[left:right+1]
+
+
+#sub之后序列的倒叙查询，但是没有简化成功
+class Solution:
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        posSeq = list(s)
+        revSeq = list(reversed(posSeq))
+        left = right = 0
+        num = len(s)
+        for sub, letter in enumerate(posSeq):
+            if num - sub < right - left + 1:break
+            for i in range(num-sub): #从sub之后序列的倒叙查询
+                posi = num - 1 - i 
+                while posSeq[posi] == letter and posSeq[sub:posi+1] == revSeq[i:num-sub]:
+                    if posi - sub > right - left:
+                        left = sub
+                        right = posi
+                    break
+        return s[left:right+1]
+  
+ #参考答案
+ class Solution(object):  #通过回文子串的中间值向两边查询
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        left = right = 0
+        n = len(s)
+        for i in range(n - 1):
+            if 2 * (n - i)  < right - left + 1: #i对应可能最长回文子串（偶数）
+                break
+            l = r = i #偶数回文子串
+            while l >= 0 and r < n and s[l] == s[r]: 
+                l -= 1
+                r += 1
+            if r - l - 2 > right - left:
+                left = l + 1
+                right = r - 1
+            l = i
+            r = i + 1 #奇数回文子串
+            while l >= 0 and r < n and s[l] == s[r]:
+                l -= 1
+                r += 1
+            if r - l - 2 > right - left:
+                left = l + 1
+                right = r - 1
+        return s[left:right + 1]
