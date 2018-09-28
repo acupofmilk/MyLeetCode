@@ -1,0 +1,13 @@
+class Solution:
+    def reverse(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        strx = str(x)
+        if strx[0] == "-":
+            revx = int("-" + strx[:-len(strx):-1])
+        else: revx = int(strx[::-1])
+        if revx > 2147483647 or revx < -2147483648:
+            revx = 0
+        return int(revx)
